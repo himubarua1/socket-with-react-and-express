@@ -3,9 +3,27 @@ import io from 'socket.io-client';
 
  class App extends Component {
 
+
+
+  constructor(){
+    super();
+    this.state={
+      msg:""
+    }
+  }
+
+
+
+
+
+
 componentDidMount(){
 
-  const socket = io.connect('/')
+  const socket = io.connect('/');
+  socket.on('msg', (data)=>{
+    this.setState({msg:data})
+  })
+
 
 }
 
@@ -13,7 +31,7 @@ componentDidMount(){
   render() {
     return (
       <div>
-
+       <h1>{this.state.msg}</h1>
       </div>
     );
   }

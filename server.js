@@ -16,7 +16,7 @@ app.use(express.static('client/build'));
 
 
 app.get('*', function(req, res){
-    res.end("This is my backend")
+    res.sendFile(path.resolve(__dirname,'client','build','index.html'))
 })
 
 
@@ -26,7 +26,13 @@ app.get('*', function(req, res){
 io.on('connection', function(socket){
     console.log("New User Connected");
 
-    socket.on('disconnected', function(){
+
+
+  setTimeout(function(){
+    socket.emit('msg', 'This is message from server')
+  }, 5000)
+
+    socket.on('disconnect', function(){
         console.log("User Disconnected");
     })
 })
